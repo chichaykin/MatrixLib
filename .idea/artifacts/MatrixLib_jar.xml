@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MatrixLib:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MatrixLib_jar</output-path>
+    <root id="archive" name="MatrixLib.jar">
+      <element id="module-output" name="MatrixLib" />
+    </root>
+  </artifact>
+</component>

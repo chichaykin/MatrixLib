@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_matrixlib" default="compile.module.matrixlib">
+  <dirname property="module.matrixlib.basedir" file="${ant.file.module_matrixlib}"/>
+  
+  <property name="module.jdk.home.matrixlib" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.matrixlib" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.matrixlib" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.matrixlib" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="matrixlib.output.dir" value="${module.matrixlib.basedir}/out/production/MatrixLib"/>
+  <property name="matrixlib.testoutput.dir" value="${module.matrixlib.basedir}/out/test/MatrixLib"/>
+  
+  <path id="matrixlib.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="matrixlib.module.production.classpath">
+    <path refid="${module.jdk.classpath.matrixlib}"/>
+  </path>
+  
+  <path id="matrixlib.runtime.production.module.classpath">
+    <pathelement location="${matrixlib.output.dir}"/>
+  </path>
+  
+  <path id="matrixlib.module.classpath">
+    <path refid="${module.jdk.classpath.matrixlib}"/>
+    <pathelement location="${matrixlib.output.dir}"/>
+  </path>
+  
+  <path id="matrixlib.runtime.module.classpath">
+    <pathelement location="${matrixlib.testoutput.dir}"/>
+    <pathelement location="${matrixlib.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.matrixlib">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.matrixlib">
+    <patternset refid="excluded.from.module.matrixlib"/>
+  </patternset>
+  
+  <path id="matrixlib.module.sourcepath">
+    <dirset dir="${module.matrixlib.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.matrixlib" depends="compile.module.matrixlib.production,compile.module.matrixlib.tests" description="Compile module MatrixLib"/>
+  
+  <target name="compile.module.matrixlib.production" depends="register.custom.compilers" description="Compile module MatrixLib; production classes">
+    <mkdir dir="${matrixlib.output.dir}"/>
+    <javac2 destdir="${matrixlib.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.matrixlib}/javac">
+      <compilerarg line="${compiler.args.matrixlib}"/>
+      <bootclasspath refid="matrixlib.module.bootclasspath"/>
+      <classpath refid="matrixlib.module.production.classpath"/>
+      <src refid="matrixlib.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.matrixlib"/>
+    </javac2>
+    
+    <copy todir="${matrixlib.output.dir}">
+      <fileset dir="${module.matrixlib.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.matrixlib.tests" depends="register.custom.compilers,compile.module.matrixlib.production" description="compile module MatrixLib; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.matrixlib" description="cleanup module">
+    <delete dir="${matrixlib.output.dir}"/>
+    <delete dir="${matrixlib.testoutput.dir}"/>
+  </target>
+</project>
