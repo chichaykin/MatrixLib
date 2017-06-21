@@ -14,8 +14,6 @@ public class Matrix {
 
     public Matrix(int[][] input) {
         this.input = input;
-        int countryIndex = 1;
-        int currentColor = input[0][0];
         rows = input.length;
         columns = input[0].length;
         passed = new int[rows][columns];
