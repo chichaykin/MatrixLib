@@ -34,4 +34,22 @@ public class MatrixTest {
         };
         assertEquals(9, Matrix.countries(a));
     }
+
+    @Test
+    public void testOneRow() {
+        int[][] a = {{0, 0, 0}};
+        assertEquals(1, Matrix.countries(a));
+    }
+
+    @Test
+    public void testOneEmptyRow() {
+        int[][] a = {{}};
+        assertEquals(0, Matrix.countries(a));
+    }
+
+    @Test
+    public void testEmpty() {
+        int[][] a = {};
+        assertEquals(0, Matrix.countries(a));
+    }
 }

@@ -15,7 +15,11 @@ public class Matrix {
     public Matrix(int[][] input) {
         this.input = input;
         rows = input.length;
-        columns = input[0].length;
+        if (rows != 0) {
+            columns = input[0].length;
+        } else {
+            columns = 0;
+        }
         passed = new int[rows][columns];
     }
 
@@ -36,6 +40,10 @@ public class Matrix {
     }
 
     public int countries() {
+        if (rows == 0 || columns == 0) {
+            return 0;
+        }
+
         countryIndex = 1;
         pass(0, 0, input[0][0]);
 
